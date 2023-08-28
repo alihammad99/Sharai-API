@@ -2,24 +2,23 @@ package main
 
 import (
     "github.com/gofiber/fiber/v2"
-    "sharai-api/controllers"
-    "sharai-api/middlewares"
+    "sharai-api/controllers/database"
+    "sharai-api/routes"
+    "log"
+    "github.com/joho/godotenv"
 )
 
+func init() {
+    err := godotenv.Load()
+    if err != nil {
+        log.Fatal("Error loading .env file")
+    }
+}
+
 func main() {
+    db.ConnectDB()
     app := fiber.New()
-
-    // Login route
-    app.Post("/login", controllers.Login)
-
-    // Unauthenticated route
-    app.Get("/", controllers.Accessible)
-
-    // JWT Middleware
-    app.Use(middlewares.JwtMiddleware())
-
-    // Restricted Routes
-    app.Post("/restricted", controllers.Restricted)
+    routes.SetupRoutes(app)
 
     app.Listen(":5000")
 }
