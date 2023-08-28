@@ -6,12 +6,13 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"os"
   )
 
 var db *mongo.Database
 
 func ConnectDB() {
-	uri := "mongodb+srv://sharai:R6ihNFuJzY5o3DZI@cluster0.qxdpiff.mongodb.net/?retryWrites=true&w=majority"
+	uri := os.Getenv("MONGODB_URL")
 	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
 	opts := options.Client().ApplyURI(uri).SetServerAPIOptions(serverAPI)
 	// Create a new client and connect to the server
