@@ -11,7 +11,7 @@ import (
 
 var db *mongo.Database
 
-func ConnectDB() {
+func ConnectDB(url string) {
 	uri := os.Getenv("MONGODB_URL")
 	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
 	opts := options.Client().ApplyURI(uri).SetServerAPIOptions(serverAPI)
